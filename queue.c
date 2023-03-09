@@ -1,4 +1,4 @@
-/*Fala Bruno beleza? Então, eu tenho a mania de sempre escrever os códigos em inglês,
+/*Fala professor beleza? Então, eu tenho a mania de sempre escrever os códigos em inglês,
 mas não as mensagens, só para não achar estranho kkkkkkk. E outra, em cada função eu coloquei
 uma mini explicação para eu não ir esquecendo que tinha que fazer kkkkkkk*/
 
