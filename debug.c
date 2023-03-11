@@ -4,46 +4,72 @@ uma mini explicação para eu não ir esquecendo que tinha que fazer kkkkkkk*/
 
 #include <stdio.h>
 #include <stdlib.h>
-#define MAX_SIZE 5
+#define MAX_SIZE 10
 
-void queue(int);
+void queue();
 void deQueue();
 void display();
 
 // Opcionais
-int sizeQueue();
-void positionQueue(int);
+int countQueue();
+void positionQueue();
 
 int queueVector[MAX_SIZE], front = -1, back = -1;
 
 int main()
 {
-    queue(1);
-    queue(2);
-    queue(3);
-    queue(4);
-    queue(5);
-    queue(6); // nao vai adicionar
-    display();
-    deQueue();
-    display();
-    sizeQueue();
-    positionQueue(2);
+    int choice, n;
+    while (1)
+    {
+        printf("Escolha uma opcao: \n");
+        printf("1. Adicionar na fila\n");
+        printf("2. Remover da fila\n");
+        printf("3. Listar a fila\n");
+        printf("4. Contar itens na fila\n");
+        printf("5. Encontrar a posicao na fila\n");
+        printf("6. Sair\n");
+        scanf("%d", &choice);
+        switch (choice)
+        {
+        case 1:
+            queue();
+            break;
+        case 2:
+            deQueue();
+            break;
+        case 3:
+            display();
+            break;
+        case 4:
+            countQueue();
+            break;
+        case 5:
+            positionQueue();
+            break;
+        case 6:
+            exit(0);
+            break;
+        default:
+            main();
+        }
+    }
+    return 0;
 }
 
-void queue(int item)
+void queue()
 {
-    // Adiciona itens a fila, e reseta o front, e sempre adiciona + 1 no back, respeitando o valor do SIZE
+    // Adiciona itens a fila, e reseta o front, e sempre adiciona + 1 no back, respeitando o valor do MAX_SIZE
+    int item;
     if (back == MAX_SIZE - 1)
-        printf("CPU: Overflow Aritmetico! Nao foi possivel adicionar o item %d a fila.\n", item);
+        printf("CPU: Overflow Aritmetico\n");
     else
     {
         if (front == -1)
             front = 0;
-        // scanf("%d", &item);
+        printf("Insira o item para adicionar na fila: \n");
+        scanf("%d", &item);
         back = back + 1;
         queueVector[back] = item;
-        printf("\nItem %d foi adicionado a fila!\n", item);
     }
 }
 
@@ -52,11 +78,14 @@ void deQueue()
     // Remove itens da fila, começando com o primeiro que foi adicionado.
     if (front == -1 || front > back)
     {
-        printf("CPU: Underflow Aritmetico! Nao eh possivel remover nada do nada.\n");
+        printf("CPU: Underflow Aritmetico \n");
         return;
     }
-    printf("Item %d foi removido da fila!\n", queueVector[front]);
-    front++;
+    else
+    {
+        printf("Item removido da fila: %d\n", queueVector[front]);
+        front = front + 1;
+    }
 }
 
 void display()
@@ -73,7 +102,7 @@ void display()
     }
 }
 
-int sizeQueue()
+int countQueue()
 {
     // Faz uma contagem de quantos itens tem na fila, tipo um length
     int c = 0, i;
@@ -83,15 +112,15 @@ int sizeQueue()
         if (queueVector[i] != 0)
             c++;
     }
-    printf("\nTotal de itens na fila: %d\n", c);
+    printf("Total de itens na fila: %d\n", c);
     return c;
 }
 
-void positionQueue(int item)
+void positionQueue()
 {
     // Utiliza um looping para pegar todos os itens da fila, então verifica se o
     // número existe, é igual ao inserito e/ou retorna.
-    int index = 0, indexFind = -1;
+    int index = 0, indexFind = -1, input;
 
     if (front == -1 || front > back)
     {
@@ -99,9 +128,12 @@ void positionQueue(int item)
         return;
     }
 
+    printf("Insira o item para mostrar a posicao: \n");
+    scanf("%d", &input);
+
     for (int i = front; i <= back; i++)
     {
-        if (queueVector[i] == item)
+        if (queueVector[i] == input)
         {
             indexFind = i;
             break;
@@ -113,7 +145,7 @@ void positionQueue(int item)
     }
     else
     {
-        printf("O item %d foi encontrado na posicao: %d\n", item, indexFind - front);
+        printf("O item %d foi encontrado na posicao: %d\n", input, indexFind - front);
     }
     return;
 }
